@@ -57,6 +57,28 @@ class App extends React.Component{
     
   }
 
+  toggleLike = (imageId) => {
+    const updatedImages = this.state.images.map(imageObject => {
+      if(imageObject.id === imageId){
+        const isLiked = imageObject.liked_by_user;
+        let updatedImage = {...imageObject};
+        updatedImage.liked_by_user = !isLiked;
+        updatedImage.likes = isLiked ? (updatedImage.likes - 1) : (updatedImage.likes + 1);
+        return updatedImage;
+      }
+      else {
+        // return {...imageObject};
+        return imageObject;
+      }
+    });
+
+    this.setState({
+      images: updatedImages
+    });
+  }
+
+
+
 
   render(){
     const {loading, currentPage, perPage, totalImages} = this.state;
@@ -64,7 +86,7 @@ class App extends React.Component{
       <>
         <SearchBar onSearch={this.onSearch}/>
         {loading && <div>Loading...</div>}
-        {!loading && <ImageList images={this.state.images} />}
+        {!loading && <ImageList toggleLike={this.toggleLike} images={this.state.images} />}
 
         <Pagination
           onPageChanged={this.fetchImages.bind(this)}

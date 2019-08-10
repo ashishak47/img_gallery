@@ -1,11 +1,11 @@
 .search-toolbar{
     margin: 0 10px;
-    display: inline-block;
-    width: 60%;
-    justify-content: center
+    display: flex;
+    justify-content: center;
+    align-items: baseline
 }
 .search-input{
-    
+    width: 60%;
     height: 2rem;
     width: 80%;
     margin: 0.5rem 1rem;

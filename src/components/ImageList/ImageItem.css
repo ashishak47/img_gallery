@@ -44,9 +44,25 @@
 }
 
 .flex-item-footer {
-    width: 18rem;
+    width: 100%;
     padding: 5px 3px;
     margin: 5px 0;
     height: 1.5rem
 
+}
+
+.actions{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+.actions button{
+    flex: auto;
+    max-width: 3rem;
+    margin: 10px;
+}
+.actions span{
+    
+    max-width: 15px;
+    margin-right: 20px;
 }
