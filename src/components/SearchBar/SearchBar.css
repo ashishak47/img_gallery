@@ -16,3 +16,8 @@
     height: 2rem;
     /* margin: 10px; */
 }
+
+.header{
+    display: flex;
+    justify-content: center;
+}

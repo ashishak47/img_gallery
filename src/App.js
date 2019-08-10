@@ -4,7 +4,7 @@ import {Pagination} from './components/pagination';
 import {getData} from './services/services';
 import ImageList from './components/ImageList/ImageList';
 import SearchBar from './components/SearchBar/SearchBar';
-
+import ImageModal from './components/modal/ImageModal';
 
 class App extends React.Component{
   constructor(){
@@ -15,7 +15,11 @@ class App extends React.Component{
       perPage: 12,
       currentPage: 1,
       loading: false,
-      query:""
+      query:"",
+      clickedImageId: '',
+      clickedImageUrl: '',
+      modalOpen: false
+
     }
   }
 
@@ -77,17 +81,33 @@ class App extends React.Component{
     });
   }
 
+  imageClick = (imageId, imageUrl) => {
+    this.setState({
+      clickedImageUrl: imageUrl,
+      clickedImageId: imageId,
+      modalOpen: true
+    });
+  }
 
-
+  closeModal = () => {
+    this.setState({
+      clickedImageUrl: '',
+      clickedImageId: '',
+      modalOpen: false
+    });
+  }
 
   render(){
-    const {loading, currentPage, perPage, totalImages} = this.state;
+    const {loading, currentPage, modalOpen, perPage, totalImages} = this.state;
     return(
       <>
         <SearchBar onSearch={this.onSearch}/>
         {loading && <div>Loading...</div>}
-        {!loading && <ImageList toggleLike={this.toggleLike} images={this.state.images} />}
-
+        {!loading && <ImageList toggleLike={this.toggleLike} imageClick={this.imageClick} images={this.state.images} />}
+        {modalOpen && <ImageModal 
+          closeModal={this.closeModal}
+          src={this.state.clickedImageUrl}
+        />}
         <Pagination
           onPageChanged={this.fetchImages.bind(this)}
           current={currentPage}

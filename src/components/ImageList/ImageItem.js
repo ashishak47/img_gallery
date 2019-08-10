@@ -1,22 +1,32 @@
 import React from 'react';
 import './ImageItem.css';
 
-const ImageItem = ({ image, toggleLike }) => {
+const ImageItem = ({ image, toggleLike, imageClick }) => {
     const toggleLikeOnClick = (imageId) => {
         toggleLike(imageId);
     }
-    console.log("### updated image item");
+
+    const onImageClick = (imageId, imageUrl) =>{
+        imageClick(imageId, imageUrl);
+    }
+    
     return (
         <div key={image.id} className="flex-item">
-            <div className="flex-item-body">
+            <div className="flex-item-body" onClick={e => {
+                    e.stopPropagation();
+                    onImageClick(image.id, image.urls.small)}
+            }>
                 <img src={image.urls.small} />
             </div>
             <div className="flex-item-footer">
                 <div className="actions">
-                    <button onClick={e => toggleLikeOnClick(image.id)}>
+                    <button onClick={e => {
+                        e.stopPropagation();
+                        toggleLikeOnClick(image.id)}
+                    }>
                         {image.liked_by_user ? 'Dislike' : 'Like'}
                     </button>
-                    <span>{image.likes}</span>
+                    <div>{image.likes}</div>
                 </div>
             </div>
         </div>
@@ -31,5 +41,5 @@ const areEqual = (prevProps, nextProps) => {
         return false;
 }
 
-//to avoid re-rendering on click like button.
+//to avoid re-rendering of other images on click like button.
 export default React.memo(ImageItem, areEqual);

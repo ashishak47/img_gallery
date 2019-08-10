@@ -55,14 +55,13 @@
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
+    margin-right: 10px;
 }
 .actions button{
     flex: auto;
     max-width: 3rem;
     margin: 10px;
 }
-.actions span{
-    
-    max-width: 15px;
-    margin-right: 20px;
+.actions>div{
+    margin-right: 10px;
 }

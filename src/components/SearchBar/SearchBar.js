@@ -11,10 +11,15 @@ const SearchBar = (props) => {
         props.onSearch(queryString);
     }  
     return(
+        <>
+        <div className="header">
+            <h2>IMAGE GALLERY</h2>
+        </div>
         <div className="search-toolbar">
             <input className="search-input" type="text" value={queryString} onChange={handleChange} placeholder="Search..."/>
             <button className="search-button" onClick={onSearch}>Go</button>
         </div>
+        </>
     )
 }
 
