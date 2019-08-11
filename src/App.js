@@ -5,6 +5,7 @@ import {getData} from './services/services';
 import ImageList from './components/ImageList/ImageList';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageModal from './components/modal/ImageModal';
+import { IMAGES_PER_PAGE } from './services/constantData';
 
 class App extends React.Component{
   constructor(){
@@ -12,7 +13,7 @@ class App extends React.Component{
     this.state = {
       images: [],
       totalImages: 0,
-      perPage: 12,
+      perPage: IMAGES_PER_PAGE,
       currentPage: 1,
       loading: false,
       query:"",
@@ -55,7 +56,6 @@ class App extends React.Component{
     this.setState({
       query: query
     }, () => {
-      console.log("### " + this.state.query);
       this.fetchImages(1);
     });
     
@@ -98,22 +98,24 @@ class App extends React.Component{
   }
 
   render(){
-    const {loading, currentPage, modalOpen, perPage, totalImages} = this.state;
+    const {loading, currentPage, modalOpen, perPage, totalImages, images} = this.state;
     return(
       <>
         <SearchBar onSearch={this.onSearch}/>
         {loading && <div>Loading...</div>}
-        {!loading && <ImageList toggleLike={this.toggleLike} imageClick={this.imageClick} images={this.state.images} />}
-        {modalOpen && <ImageModal 
+        {!loading && !images.length && <div className="noDataText">No Results found.</div>}
+        {!loading && !!images.length && <ImageList toggleLike={this.toggleLike} imageClick={this.imageClick} images={images} />}
+        { !!images.length && modalOpen && <ImageModal 
           closeModal={this.closeModal}
           src={this.state.clickedImageUrl}
         />}
-        <Pagination
-          onPageChanged={this.fetchImages.bind(this)}
-          current={currentPage}
-          total={totalImages}
-          perPage={perPage}
-        />
+        {!!images.length &&
+          <Pagination
+            onPageChanged={this.fetchImages.bind(this)}
+            current={currentPage}
+            total={totalImages}
+            perPage={perPage}
+          />}
       </>
     )
   }

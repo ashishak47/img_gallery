@@ -30,7 +30,7 @@ export default class ImageModal extends Component {
                                     e.stopPropagation();
                                     
                                 }}>
-                                Close
+                                X
                             </button>
 
                             {/* <button className='modal-button'
