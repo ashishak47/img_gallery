@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './ImageModal.css';
+import PropTypes from 'prop-types';
 
 export default class ImageModal extends Component {
 
     closeModal = () => {
-        // console.log("close modal clicked");
         this.props.closeModal();
     }
 
@@ -50,4 +50,9 @@ export default class ImageModal extends Component {
         )
     }
 
+}
+
+ImageModal.propTypes = {
+    closeModal: PropTypes.func.isRequired,
+    src: PropTypes.string.isRequired
 }

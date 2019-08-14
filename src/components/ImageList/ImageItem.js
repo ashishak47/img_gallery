@@ -1,5 +1,7 @@
 import React from 'react';
 import './ImageItem.css';
+import PropTypes from 'prop-types';
+
 
 const ImageItem = ({ image, toggleLike, imageClick }) => {
     const toggleLikeOnClick = (imageId) => {
@@ -31,6 +33,12 @@ const ImageItem = ({ image, toggleLike, imageClick }) => {
             </div>
         </div>
     )
+}
+
+ImageItem.propTypes = {
+    imageClick: PropTypes.func.isRequired,
+    toggleLike: PropTypes.func.isRequired,
+    image: PropTypes.object.isRequired
 }
 
 const areEqual = (prevProps, nextProps) => {
